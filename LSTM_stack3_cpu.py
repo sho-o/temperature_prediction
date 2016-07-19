@@ -183,41 +183,4 @@ for i in range(jump * n_epoch):
         loss = F.mean_squared_error(Variable(y_val_pred, volatile='on'), Variable(t_val, volatile='on'))
         print 'validation:%f'%loss.data
 
-    '''
-    if (i + 1) % 10000000 == 0:
-        model_test = model.copy()
-        model_test.reset_state()
-        x_test = X_test
-        y_test_pred = xp.empty([1800, 1], dtype=xp.float32)
-        for j in range(1800):
-            tmp = xp.asarray(x_test[j].reshape((1,36)))
-            y_test_pred[j][0] = model_test(Variable(tmp), False).data 
-        SUBMIT_PATH = 'submission_cpu_input_dif_drop%d.dat'% ((i + 1) / jump)
-        pred = cuda.to_cpu(y_test_pred)
-        np.savetxt(SUBMIT_PATH, pred, fmt='%.10f')
-    '''
-
-
-
-'''
-model.reset_state()
-x = X_val
-t = xp.asarray(y_val)
-model.zerograds()
-y_test_pred = xp.empty([360, 1], dtype=xp.float32)
-for j in range(batchsize):
-	tmp = xp.asarray(x[j].reshape((1,36)))
-	y_test_pred[j][0] = model(Variable(tmp)).data
-loss = F.mean_squared_error(Variable(y_test_pred), Variable(t))
-print loss.data
-'''
-
-
-
-'''
-model.reset_state()
-y_test_pred = model(x_test)
-print y_test_pred.data.shape
-SUBMIT_PATH = 'submission.dat'
-np.savetxt(SUBMIT_PATH, y_test_pred.data, fmt='%.10f')
-'''
+    
